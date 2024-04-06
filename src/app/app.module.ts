@@ -15,6 +15,9 @@ import { CatalogueComponent } from './catalogue/catalogue.component';
 import { SearchComponent } from './search/search.component';
 import { FormsModule } from '@angular/forms';
 import { GestionCartesModule } from './gestion-cartes/gestion-cartes.module';
+import { NgxsModule } from '@ngxs/store';
+import { PanierState } from './store/panier.state';
+import { PanierComponent } from './panier/panier.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -24,7 +27,8 @@ import { GestionCartesModule } from './gestion-cartes/gestion-cartes.module';
         BodyComponent,
         HeaderComponent,
         CatalogueComponent,
-        SearchComponent
+        SearchComponent,
+        PanierComponent
     ],
     providers: [ProductBackendService],
     bootstrap: [AppComponent],
@@ -35,7 +39,8 @@ import { GestionCartesModule } from './gestion-cartes/gestion-cartes.module';
         ReactiveFormsModule,
         HttpClientModule,
         FormsModule,
-        GestionCartesModule
+        GestionCartesModule,
+        NgxsModule.forRoot([PanierState]),
     ]
 })
 export class AppModule { }
