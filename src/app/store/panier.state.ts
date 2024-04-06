@@ -1,10 +1,14 @@
-// panier.state.ts
 import { State, Action, StateContext } from '@ngxs/store';
 import { AjouterProduit, SupprimerProduit } from './panier.actions';
 import { Injectable } from '@angular/core';
 
+export interface Produit {
+    nom: string;
+    prix: number;
+}
+
 export interface PanierStateModel {
-  items: string[];
+  items: Produit[];
 }
 
 @State<PanierStateModel>({
@@ -13,7 +17,6 @@ export interface PanierStateModel {
     items: []
   }
 })
-
 @Injectable()
 export class PanierState {
 
@@ -29,12 +32,13 @@ export class PanierState {
   @Action(SupprimerProduit)
   supprimerProduit(ctx: StateContext<PanierStateModel>, action: SupprimerProduit) {
     const state = ctx.getState();
-    const index = state.items.indexOf(action.produit);
-    if (index !== -1) {
-      state.items.splice(index, 1);
+    const produitIndex = state.items.findIndex(item => item.nom === action.produit.nom);
+    if (produitIndex !== -1) {
+      const nouveauxProduits = [...state.items];
+      nouveauxProduits.splice(produitIndex, 1);
       ctx.setState({
         ...state,
-        items: [...state.items]
+        items: nouveauxProduits
       });
     }
   }

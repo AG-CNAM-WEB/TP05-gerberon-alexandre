@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../product.service';
 import { Store } from '@ngxs/store';
 import { AjouterProduit } from '../store/panier.actions';
+
 @Component({
   selector: 'app-catalogue',
   templateUrl: './catalogue.component.html',
@@ -22,13 +23,18 @@ export class CatalogueComponent implements OnInit {
       this.filteredProducts = this.products; // Initialisez les produits filtrés avec tous les produits au début
     });
   }
+
   onSearch(criteria: any): void {
     console.log('Received Search Criteria:', criteria);
     this.filteredProducts = this.filterProducts(criteria);
   }
-  
+
   ajouterAuPanier(product: any): void {
-    this.store.dispatch(new AjouterProduit(product));
+    const produitPanier = {
+      nom: product.name,
+      prix: product.price
+    };
+    this.store.dispatch(new AjouterProduit(produitPanier));
   }
 
   private filterProducts(criteria: any): any[] {

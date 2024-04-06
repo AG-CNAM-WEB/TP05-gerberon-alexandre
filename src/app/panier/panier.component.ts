@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { PanierState, PanierStateModel } from '../store/panier.state';
+import { PanierState, PanierStateModel, Produit } from '../store/panier.state';
 import { SupprimerProduit } from '../store/panier.actions';
 
 @Component({
@@ -19,7 +19,7 @@ export class PanierComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  supprimerProduit(produit: string) {
+  supprimerProduit(produit: Produit) {
     this.store.dispatch(new SupprimerProduit(produit));
   }
 }
